@@ -1,7 +1,7 @@
 import DocLink from '@components/DocLink.astro';
 import ConditionalHeading from '@components/ConditionalHeading.astro';
-import ShowFor from '@components/ShowFor.astro';
-import { Aside, Code, Tabs, TabItem } from '@astrojs/starlight/components';
+import ShowFor from '~/components/ShowFor.astro';
+import { Aside, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import { Products } from '~/models/site.models';
 
 ## Possible Performance Issues
@@ -87,6 +87,327 @@ The following entries will then appear in your [logs](#logs):
 Cached data can become corrupted. Clearing the cache is always safe — ThingsBoard repopulates it at runtime. To clear it, log into the server/container/pod, open the command-line tool (`redis-cli` for Redis or `valkey-cli` for Valkey), and run `FLUSHALL`. In Sentinel mode, access the master container and run the same command.
 
 If you cannot identify the cause of a problem, clear the cache to rule it out.
+
+<ShowFor product={props.product} show={[Products.PE]}>
+
+<ConditionalHeading level={2} id="license-related-issues" showFor="pe">License Related Issues</ConditionalHeading>
+
+During an update or fresh installation, you may encounter the following license-related errors that prevent the ThingsBoard service from starting.
+
+### INVALID_LICENSE_SECRET (101)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** Invalid license key in `/etc/thingsboard/conf/thingsboard.conf`.
+
+**How to fix:** Re-check your license key in `thingsboard.conf` and correct it.
+
+### SUBSCRIPTION_NOT_FOUND (102)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** Subscription not found on the License Server.
+
+**How to fix:** [Contact support](/contact-us/).
+
+### SUBSCRIPTION_NOT_ACTIVE (103)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** Subscription is not active on the License Server.
+
+**How to fix:** [Contact support](/contact-us/).
+
+### ACTIVE_INSTANCES_CAPACITY_EXCEEDED (104)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** The active instance capacity for this license key has been exceeded. This typically occurs when the same key is used on multiple instances, when cluster nodes are scaled beyond the licensed capacity, or when the `instance-license.data` file was deleted and the old instance was not deactivated on the License portal.
+
+<Aside type="note">Development License limit is 1 instance.</Aside>
+
+**How to fix:**
+
+<Tabs>
+  <TabItem label="Linux">
+    <Steps>
+      1. Stop the ThingsBoard service:
+         ```bash
+         sudo systemctl stop thingsboard
+         ```
+      2. Delete the license data file:
+         ```bash
+         sudo rm -f /usr/share/thingsboard/bin/instance-license.data
+         ```
+      3. On the License portal, locate and deactivate the current active instance via **MANAGE INSTANCES**. Do **not** delete the license key and do **not** change the instance count.
+      4. Start the ThingsBoard service:
+         ```bash
+         sudo systemctl start thingsboard
+         ```
+    </Steps>
+  </TabItem>
+  <TabItem label="Windows">
+    Open PowerShell as Administrator.
+
+    <Steps>
+      1. Stop the ThingsBoard service:
+         ```powershell
+         Stop-Service thingsboard
+         ```
+      2. Delete the license data file:
+         ```powershell
+         Remove-Item "C:\Program Files (x86)\thingsboard\instance-license.data"
+         ```
+      3. On the License portal, deactivate the current active instance. Do **not** delete the license key.
+      4. Start the ThingsBoard service:
+         ```powershell
+         Start-Service thingsboard
+         ```
+    </Steps>
+  </TabItem>
+  <TabItem label="Docker">
+    <Steps>
+      1. Navigate to the directory containing your `docker-compose` file for ThingsBoard.
+      2. Go to the `mytbpe-data` directory and delete the license data file:
+         ```bash
+         sudo rm -f instance-license.data
+         ```
+      3. On the License portal, deactivate the current active instance. Do **not** delete the license key.
+      4. Restart the container:
+         ```bash
+         docker restart mytb
+         ```
+    </Steps>
+  </TabItem>
+</Tabs>
+
+### INSTANCE_NOT_FOUND (105)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** ThingsBoard has generated an `instance-license.data` file, but the `instanceId` record has been deleted from the License Server.
+
+**How to fix:**
+
+<Tabs>
+  <TabItem label="Linux">
+    <Steps>
+      1. Stop the ThingsBoard service:
+         ```bash
+         sudo systemctl stop thingsboard
+         ```
+      2. Delete the license data file:
+         ```bash
+         sudo rm -f /usr/share/thingsboard/bin/instance-license.data
+         ```
+      3. Start the ThingsBoard service:
+         ```bash
+         sudo systemctl start thingsboard
+         ```
+    </Steps>
+  </TabItem>
+  <TabItem label="Windows">
+    Open PowerShell as Administrator.
+
+    <Steps>
+      1. Stop the ThingsBoard service:
+         ```powershell
+         Stop-Service thingsboard
+         ```
+      2. Delete the license data file:
+         ```powershell
+         Remove-Item "C:\Program Files (x86)\thingsboard\instance-license.data"
+         ```
+      3. Start the ThingsBoard service:
+         ```powershell
+         Start-Service thingsboard
+         ```
+    </Steps>
+  </TabItem>
+  <TabItem label="Docker">
+    <Steps>
+      1. Navigate to the directory containing your `docker-compose` file for ThingsBoard.
+      2. Go to the `mytbpe-data` directory and delete the license data file:
+         ```bash
+         sudo rm -f license.data
+         ```
+      3. Restart the container:
+         ```bash
+         docker restart mytb
+         ```
+    </Steps>
+  </TabItem>
+</Tabs>
+
+### INVALID_LICENSE_CHECK_REQUEST (106)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** Invalid license check request sent.
+
+**How to fix:** [Contact support](/contact-us/).
+
+### INVALID_LICENSE_CHECK_SECRET (107)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** Invalid license key in `/etc/thingsboard/conf/thingsboard.conf`.
+
+This error has three variants:
+- `License Error: INVALID_LICENSE_CHECK_SECRET(107) - Invalid secret request sequence number!`
+- `License Error: INVALID_LICENSE_CHECK_SECRET(107) - Invalid instance secret!`
+- `License Error: INVALID_LICENSE_CHECK_SECRET(107) - Invalid secret instanceId!`
+
+**How to fix:** Re-check your license key in `thingsboard.conf` and correct it, or follow the steps below:
+
+<Tabs>
+  <TabItem label="Linux">
+    <Steps>
+      1. Stop the ThingsBoard service:
+         ```bash
+         sudo systemctl stop thingsboard
+         ```
+      2. Delete the license data file:
+         ```bash
+         sudo rm -f /usr/share/thingsboard/bin/instance-license.data
+         ```
+      3. On the License portal, deactivate the current active instance. Do **not** delete the license key.
+      4. Start the ThingsBoard service:
+         ```bash
+         sudo systemctl start thingsboard
+         ```
+    </Steps>
+  </TabItem>
+  <TabItem label="Windows">
+    Open PowerShell as Administrator.
+
+    <Steps>
+      1. Stop the ThingsBoard service:
+         ```powershell
+         Stop-Service thingsboard
+         ```
+      2. Delete the license data file:
+         ```powershell
+         Remove-Item "C:\Program Files (x86)\thingsboard\instance-license.data"
+         ```
+      3. On the License portal, deactivate the current active instance. Do **not** delete the license key.
+      4. Start the ThingsBoard service:
+         ```powershell
+         Start-Service thingsboard
+         ```
+    </Steps>
+  </TabItem>
+  <TabItem label="Docker">
+    <Steps>
+      1. Navigate to the directory containing your `docker-compose` file for ThingsBoard.
+      2. Go to the `mytbpe-data` directory and delete the license data file:
+         ```bash
+         sudo rm -f instance-license.data
+         ```
+      3. On the License portal, deactivate the current active instance. Do **not** delete the license key.
+      4. Restart the container:
+         ```bash
+         docker restart mytb
+         ```
+    </Steps>
+  </TabItem>
+</Tabs>
+
+### INSTANCE_NOT_ACTIVE (108)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** The `instanceId` record is deactivated on the License Server.
+
+**How to fix:** Activate the specific `instanceId` record on the License Server, or follow the steps below to reset the instance:
+
+<Tabs>
+  <TabItem label="Linux">
+    <Steps>
+      1. Stop the ThingsBoard service:
+         ```bash
+         sudo systemctl stop thingsboard
+         ```
+      2. Delete the license data file:
+         ```bash
+         sudo rm -f /usr/share/thingsboard/bin/instance-license.data
+         ```
+      3. Start the ThingsBoard service:
+         ```bash
+         sudo systemctl start thingsboard
+         ```
+    </Steps>
+  </TabItem>
+  <TabItem label="Windows">
+    Open PowerShell as Administrator.
+
+    <Steps>
+      1. Stop the ThingsBoard service:
+         ```powershell
+         Stop-Service thingsboard
+         ```
+      2. Delete the license data file:
+         ```powershell
+         Remove-Item "C:\Program Files (x86)\thingsboard\instance-license.data"
+         ```
+      3. Start the ThingsBoard service:
+         ```powershell
+         Start-Service thingsboard
+         ```
+    </Steps>
+  </TabItem>
+  <TabItem label="Docker">
+    <Steps>
+      1. Navigate to the directory containing your `docker-compose` file for ThingsBoard.
+      2. Go to the `mytbpe-data` directory and delete the license data file:
+         ```bash
+         sudo rm -f instance-license.data
+         ```
+      3. Restart the container:
+         ```bash
+         docker restart mytb
+         ```
+    </Steps>
+  </TabItem>
+</Tabs>
+
+### UNSUPPORTED_SOFTWARE_VERSION (109)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** The ThingsBoard version was upgraded, but the license or subscription does not support this version.
+
+**How to fix:** Restore the previous version of ThingsBoard.
+
+### GENERAL_SERVER_ERROR (200)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** Internal License Server error.
+
+**How to fix:** [Contact support](/contact-us/).
+
+### GENERAL_ERROR (300)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** Internal License Client error. This is a non-specific error most commonly caused by out-of-memory (OOM) or disk space issues, but there are other potential root causes.
+
+Another common cause is exhausted file descriptors:
+
+```
+Failed to persist instance data into: "instance-license.data"!
+<…>
+Caused by: java.nio.file.FileSystemException: instance-license.data: Too many open files
+<…>
+```
+
+**How to fix:** [Contact support](/contact-us/) — this error has multiple potential root causes that require investigation.
+
+### INVALID_SERVER_CERTIFICATE (350)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** Internal License Server error.
+
+**How to fix:** [Contact support](/contact-us/).
+
+### CONNECTION_ERROR (400)
+**Issue:** ThingsBoard service does not start.
+
+**Root cause:** Connection-related issue (network, firewall, etc.).
+
+**How to fix:** [Contact support](/contact-us/).
+
+</ShowFor>
 
 ## Logs
 
