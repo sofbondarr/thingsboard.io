@@ -120,7 +120,7 @@ The deployment pattern includes a base setup plus optional addons.
 
 For the simplest, most cost-efficient setup, all components, including the database and proxy, are hosted on a single server. This configuration is ideal for prototyping, development environments, or small-scale production workloads where ease of management and cost are the primary concerns.
 
-<ImageGallery images={[{ src: '/src/assets/schemas/scenario-a-basic.svg', alt: 'Scenario A, Setup: simple standalone ThingsBoard server with PostgreSQL and reverse proxy on a single server' }]} />
+<ImageGallery images={[{ src: '/src/assets/images/reference/architecture/deployment-scenarios/setup-a1.svg', alt: 'Scenario A, Setup: simple standalone ThingsBoard server with PostgreSQL and reverse proxy on a single server' }]} />
 
 You can further improve this architecture by applying optional addons, described below.
 
@@ -173,7 +173,7 @@ The default Scenario A configuration does not include Kafka. However, Kafka can 
 
 This configuration separates the application stack from the data storage by moving the database onto an external Postgres instance. This isolates database load from the application and lets you scale and back up storage independently, while keeping the application deployment simple.
 
-<ImageGallery images={[{ src: '/src/assets/schemas/scenario-a-optional.svg', alt: 'Scenario A optional addon: ThingsBoard standalone server with entity and telemetry data offloaded to an external Postgres instance' }]} />
+<ImageGallery images={[{ src: '/src/assets/images/reference/architecture/deployment-scenarios/setup-a2.svg', alt: 'Scenario A optional addons: Kafka on the ThingsBoard server, with entity and telemetry data offloaded to an external Postgres instance' }]} />
 
 **Architectural Modifications:**
 
@@ -205,7 +205,7 @@ The deployment pattern includes 2 configuration options, each optimized for a di
 
 For workloads with moderate data ingestion rates, this setup uses a Postgres instance to store both entity and telemetry data. Public access to the ThingsBoard application inside the cluster is provided by a load balancer.
 
-<ImageGallery images={[{ src: '/src/assets/schemas/scenario-b-sql.svg', alt: 'Scenario B, Setup 1: single-node Kubernetes cluster running ThingsBoard with a Postgres instance for entity and telemetry data, exposed via a load balancer' }]} />
+<ImageGallery images={[{ src: '/src/assets/images/reference/architecture/deployment-scenarios/setup-b1.svg', alt: 'Scenario B, Setup 1: single-node Kubernetes cluster running ThingsBoard with a Postgres instance for entity and telemetry data, exposed via a load balancer' }]} />
 
 **Compute Resources:**
 
@@ -264,7 +264,7 @@ A managed PostgreSQL service is recommended when your provider offers one, as it
 
 At higher telemetry throughput, the architecture may be transitioned to a **hybrid database topology**. Switching telemetry writes to Cassandra enables far greater scalability, especially valuable for read-heavy and write-heavy workloads.
 
-<ImageGallery images={[{ src: '/src/assets/schemas/scenario-b-hybrid.svg', alt: 'Scenario B, Setup 2: single-node Kubernetes cluster with hybrid database topology - a Postgres instance for entity data and a self-hosted Cassandra cluster for telemetry' }]} />
+<ImageGallery images={[{ src: '/src/assets/images/reference/architecture/deployment-scenarios/setup-b2.svg', alt: 'Scenario B, Setup 2: single-node Kubernetes cluster with hybrid database topology - a Postgres instance for entity data and a self-hosted Cassandra cluster for telemetry' }]} />
 
 **Architectural Modifications:**
 
@@ -334,7 +334,7 @@ This scenario is a direct upgrade to [Scenario B](#scenario-b-single-node-cluste
 
 For workloads with moderate data ingestion rates, this setup uses a Postgres instance to store both entity and telemetry data. Public access to the ThingsBoard application inside the cluster is provided by a load balancer.
 
-<ImageGallery images={[{ src: '/src/assets/schemas/scenario-c-sql.svg', alt: 'Scenario C, Setup 1: high-availability ThingsBoard microservices cluster spanning three Availability Zones with a Postgres instance and a load balancer' }]} />
+<ImageGallery images={[{ src: '/src/assets/images/reference/architecture/deployment-scenarios/setup-c1.svg', alt: 'Scenario C, Setup 1: high-availability ThingsBoard microservices cluster spanning three Availability Zones with a Postgres instance and a load balancer' }]} />
 
 **Compute Resources:**
 
@@ -398,7 +398,7 @@ A managed PostgreSQL service is recommended when your provider offers one, as it
 
 Similarly to [Scenario B](#scenario-b-single-node-cluster), the second configuration option transitions to a **hybrid database topology**. Switching telemetry writes to Cassandra enables far greater scalability, especially valuable for read-heavy and write-heavy workloads.
 
-<ImageGallery images={[{ src: '/src/assets/schemas/scenario-c-hybrid.svg', alt: 'Scenario C, Setup 2: high-availability ThingsBoard microservices cluster across three Availability Zones with hybrid database topology - a Postgres instance and a self-hosted Cassandra cluster' }]} />
+<ImageGallery images={[{ src: '/src/assets/images/reference/architecture/deployment-scenarios/setup-c2.svg', alt: 'Scenario C, Setup 2: high-availability ThingsBoard microservices cluster across three Availability Zones with hybrid database topology - a Postgres instance and a self-hosted Cassandra cluster' }]} />
 
 **Architectural Modifications:**
 
