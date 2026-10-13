@@ -1,5 +1,5 @@
 ---
-import BaseLayout from './BaseLayout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 import { getOgImageUrl } from '~/util/getOgImageUrl';
 
 interface Props {
@@ -13,10 +13,10 @@ const { title, description, pageSlug, ogImage: ogImageProp } = Astro.props;
 const ogImage = ogImageProp ?? getOgImageUrl(Astro.url.pathname);
 ---
 
-<BaseLayout title={title} description={description} pageId="use-cases" ogImage={ogImage}>
-	<main class="use-case-page" data-slug={pageSlug}>
+<BaseLayout headerVariant="solid-border" title={title} description={description} ogImage={ogImage}>
+	<div class="use-case-page" data-slug={pageSlug}>
 		<slot />
-	</main>
+	</div>
 </BaseLayout>
 
 <style lang="scss" is:global>
@@ -25,7 +25,7 @@ const ogImage = ogImageProp ?? getOgImageUrl(Astro.url.pathname);
 	// Page container
 	.use-case-page {
 		@include container;
-		padding-top: calc(#{$header-height} + #{$spacing-10});
+		padding-top: $spacing-10;
 		padding-bottom: $spacing-20;
 		border-left: 1px solid var(--color-border);
 		border-right: 1px solid var(--color-border);
@@ -149,6 +149,31 @@ const ogImage = ogImageProp ?? getOgImageUrl(Astro.url.pathname);
 
 		.uc-mode-selector {
 			margin-bottom: 0;
+		}
+	}
+
+	@media print {
+		.use-case-page {
+			padding-top: 0;
+			padding-bottom: 0;
+			border: 0;
+		}
+
+		.uc-section-padding {
+			padding: $spacing-6 0;
+		}
+
+		.uc-scada-content {
+			display: block;
+
+			&[data-print-label]::before {
+				@include card-title;
+				content: attr(data-print-label);
+				display: block;
+				margin: $spacing-4 0 $spacing-3;
+				color: var(--color-text);
+				break-after: avoid;
+			}
 		}
 	}
 </style>

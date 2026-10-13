@@ -1,10 +1,16 @@
 ---
+interface Props {
+	/** Clipped to the section it sits in, rather than running the width of the page. */
+	contained?: boolean;
+}
+
+const { contained = false } = Astro.props;
 // Diagonal animated wave background — upper-left to bottom-right, converging at bottom
 // Uses SMIL <animateTransform> for correct SVG coordinate-space animation
 // Light mode: blue waves on white; Dark mode: lighter waves on dark bg
 ---
 
-<div class="pricing-bg" aria-hidden="true">
+<div class:list={['pricing-bg', contained && 'pricing-bg--contained', 'print:hidden']} aria-hidden="true">
 	<svg
 		class="pricing-bg-svg"
 		xmlns="http://www.w3.org/2000/svg"
@@ -113,6 +119,11 @@
 		perspective: 1400px;
 	}
 
+	/* Same class weight as `.pricing-bg`, so it has to stay after it to win. */
+	.pricing-bg--contained {
+		position: absolute;
+	}
+
 	[data-theme='dark'] .pricing-bg {
 		--pricing-wave-color: #6b9aff;
 	}
@@ -139,6 +150,18 @@
 		);
 		-webkit-mask-image: var(--pricing-bg-fade);
 		mask-image: var(--pricing-bg-fade);
+	}
+
+	/* On narrow viewports the tall, narrow box made `slice` zoom the square
+	   wave field ~1.8x and show only its right edge (a flat wedge). Keep the
+	   box near-square so the full wave pattern shows, like on desktop. */
+	@media (max-width: 768px) {
+		.pricing-bg-svg {
+			width: 220%;
+			height: 110%;
+			right: -60%;
+			top: -20%;
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {

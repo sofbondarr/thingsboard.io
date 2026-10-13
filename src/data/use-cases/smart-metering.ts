@@ -1,6 +1,6 @@
 import type { UseCaseData } from './types';
 
-export const smartMeteringData: UseCaseData = {
+export const data: UseCaseData = {
 	title: 'IoT smart metering solution',
 	pageTitle: 'ThingsBoard Smart Metering for Cities, Industry & Business',
 	description:
@@ -10,12 +10,49 @@ export const smartMeteringData: UseCaseData = {
 		shortText:
 			"In today's world of growing urban infrastructure, energy efficiency and water management have become top priorities. Smart metering solutions powered by the ThingsBoard IoT platform offer a transformative approach to utility monitoring, enabling stakeholders to access accurate, real-time insights into consumption patterns.",
 		longText: [
-			'With enhanced visibility, municipalities, facilities managers, and utility providers can make faster, data-driven decisions that optimize resource use, reduce waste, and lower operational costs. ThingsBoard plays an important role in this evolution by offering flexible, open-source tools to collect, process, and visualize telemetry data across distributed assets such as meters, sensors, and edge devices. Its modular architecture and rich feature set enable seamless integration of diverse devices, ensuring reliable real-time monitoring and control of utility infrastructure.',
+			'With enhanced visibility, municipalities, facilities managers, and utility providers can make faster, data-driven decisions that optimize resource use, reduce waste, and lower operational costs. ThingsBoard plays an important role in this evolution by offering flexible tools to collect, process, and visualize telemetry data across distributed assets such as meters, sensors, and edge devices. Its modular architecture and rich feature set enable seamless integration of diverse devices, ensuring reliable real-time monitoring and control of utility infrastructure.',
 			'This use case showcases how ThingsBoard empowers organizations to build robust, end-to-end smart metering solutions. By combining protocol versatility, intuitive dashboards, and powerful rule engines, ThingsBoard makes it easy to monitor energy and water usage across residential, commercial, and municipal environments—enhancing sustainability and operational control.',
 		],
 		demoUrl:
 			'https://demo.thingsboard.io/dashboard/3a1026e0-83f6-11e7-b56d-c7f326cba909?publicId=322a2330-7c36-11e7-835d-c7f326cba909',
 		demoButtonId: 'UseCases_SmartMetering_ViewLiveDemo',
+	},
+	overview: {
+		type: 'carousel',
+		carouselImages: [
+			{
+				src: '/src/assets/images/usecases/smart-metering/smart-metering-1.webp',
+				alt: 'ThingsBoard dashboard showing energy and water consumption, district map, and critical alarm for District B in San Francisco',
+				title:
+					'ThingsBoard dashboard – energy and water monitoring, map and alarms for San Francisco districts',
+				width: 2048,
+				height: 1090,
+			},
+			{
+				src: '/src/assets/images/usecases/smart-metering/smart-metering-2.webp',
+				alt: 'ThingsBoard dashboard displaying District A buildings on the map, energy and water consumption, and a critical high temperature alarm',
+				title:
+					'ThingsBoard dashboard – monitoring buildings in District A with real-time energy, water usage, and critical alarms',
+				width: 2048,
+				height: 1090,
+			},
+			{
+				src: '/src/assets/images/usecases/smart-metering/smart-metering-3.webp',
+				alt: 'ThingsBoard dashboard with apartment layout of Building A1, showing energy and water usage for Apartments A1-1 and A1-2, and a critical temperature alarm',
+				title:
+					'ThingsBoard dashboard – apartment-level monitoring in Building A1 with real-time energy, water consumption, and alarms',
+				width: 2048,
+				height: 1090,
+			},
+			{
+				src: '/src/assets/images/usecases/smart-metering/smart-metering-4.webp',
+				alt: 'ThingsBoard dashboard showing thermostat readings, real-time temperature control, a critical high temperature alarm, and historical temperature graph for Apartment A1-1',
+				title:
+					'ThingsBoard dashboard – thermostat monitoring and control with temperature history and alarm for Apartment A1-1',
+				width: 2048,
+				height: 1090,
+			},
+		],
 	},
 	solutionStructure: {
 		title: 'Solution structure of smart metering',
@@ -100,7 +137,6 @@ export const smartMeteringData: UseCaseData = {
 				description:
 					'Optimize city-wide water and energy management to support sustainable urban development.',
 				desktopImage: '/src/assets/images/usecases/smart-metering/utilities-1.svg',
-				mobileImage: '/src/assets/images/usecases/smart-metering/utilities-2.svg',
 				imageAlt: 'Municipal utilities',
 				imageTitle: 'Municipal utilities',
 			},
@@ -109,7 +145,6 @@ export const smartMeteringData: UseCaseData = {
 				description:
 					'Enable landlords and tenants to monitor and reduce energy bills through transparent usage tracking.',
 				desktopImage: '/src/assets/images/usecases/smart-metering/complex-1.svg',
-				mobileImage: '/src/assets/images/usecases/smart-metering/complex-2.svg',
 				imageAlt: 'Residential complexes',
 				imageTitle: 'Residential complexes',
 			},
@@ -118,7 +153,6 @@ export const smartMeteringData: UseCaseData = {
 				description:
 					'Ensure operational efficiency and compliance with green building standards by tracking real-time resource use.',
 				desktopImage: '/src/assets/images/usecases/smart-metering/facilities-1.svg',
-				mobileImage: '/src/assets/images/usecases/smart-metering/facilities-2.svg',
 				imageAlt: 'Commercial facilities',
 				imageTitle: 'Commercial facilities',
 			},
@@ -127,7 +161,6 @@ export const smartMeteringData: UseCaseData = {
 				description:
 					'Gain insights into high-consumption areas, detect leaks or overuse early, and prevent costly downtime.',
 				desktopImage: '/src/assets/images/usecases/smart-metering/industrial-1.svg',
-				mobileImage: '/src/assets/images/usecases/smart-metering/industrial-2.svg',
 				imageAlt: 'Industrial plants',
 				imageTitle: 'Industrial plants',
 			},
@@ -136,7 +169,6 @@ export const smartMeteringData: UseCaseData = {
 				description:
 					'Empower facility managers to improve campus energy efficiency and promote eco-friendly behavior.',
 				desktopImage: '/src/assets/images/usecases/smart-metering/institutions-1.svg',
-				mobileImage: '/src/assets/images/usecases/smart-metering/institutions-2.svg',
 				imageAlt: 'Educational institutions',
 				imageTitle: 'Educational institutions',
 			},

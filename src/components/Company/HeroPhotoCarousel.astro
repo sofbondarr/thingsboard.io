@@ -26,8 +26,11 @@ const items = [
 
 <div class="hero-carousel-wrap">
 	<div class="hero-carousel-track">
-		{[...items, ...items].map((item) => (
-			<div class={`carousel-item carousel-item--${item.type}`}>
+		{[...items, ...items].map((item, index) => (
+			<div
+				class:list={['carousel-item', `carousel-item--${item.type}`, index >= 2 && 'print:hidden']}
+				aria-hidden={index >= items.length ? 'true' : undefined}
+			>
 				{item.type === 'single' && (
 					<Image src={item.src!} alt={item.alt!} width={900} height={600} loading="eager" />
 				)}
@@ -70,7 +73,6 @@ const items = [
 		animation: carousel-scroll 40s linear infinite;
 		width: max-content;
 	}
-
 
 	.carousel-item {
 		flex-shrink: 0;
@@ -141,12 +143,58 @@ const items = [
 	.hero-carousel-wrap.dragging {
 		cursor: grabbing;
 	}
+
+	/* Reduced motion: show the strip immediately (skip the reveal) and stop the
+	   auto-scroll. Drag still works; resumeFrom() leaves it static (see script). */
+	@media (prefers-reduced-motion: reduce) {
+		.hero-carousel-wrap {
+			opacity: 1;
+		}
+
+		.hero-carousel-wrap.animate {
+			animation: none;
+		}
+
+		.hero-carousel-track {
+			animation: none;
+		}
+	}
+
+	@media print {
+		.hero-carousel-wrap {
+			opacity: 1 !important;
+			clip-path: none !important;
+		}
+
+		.hero-carousel-track {
+			width: 100%;
+			transform: none !important;
+		}
+
+		.carousel-item {
+			height: 300px;
+		}
+
+		.carousel-item--single {
+			width: 66.667%;
+		}
+
+		.carousel-item--double {
+			width: 33.333%;
+		}
+
+		.carousel-item-double img {
+			width: 100%;
+			height: 150px;
+		}
+	}
 </style>
 
 <script>
 	const wrap = document.querySelector('.hero-carousel-wrap') as HTMLElement;
 	const track = document.querySelector('.hero-carousel-track') as HTMLElement;
 	const DURATION = 40;
+	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 	function getTranslateX(): number {
 		return new DOMMatrix(getComputedStyle(track).transform).m41;
@@ -157,6 +205,11 @@ const items = [
 	}
 
 	function resumeFrom(offsetPx: number): void {
+		// Reduced motion: leave the strip wherever the user dragged it, no auto-scroll.
+		if (reduceMotion) {
+			track.style.animation = 'none';
+			return;
+		}
 		const scrollWidth = getScrollWidth();
 		let norm = ((offsetPx % scrollWidth) + scrollWidth) % scrollWidth;
 		if (norm > 0) norm -= scrollWidth;

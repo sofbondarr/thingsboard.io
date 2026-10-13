@@ -1,6 +1,6 @@
 import type { UseCaseData } from './types';
 
-export const airQualityMonitoringData: UseCaseData = {
+export const data: UseCaseData = {
 	title: 'Air quality monitoring solution',
 	pageTitle: 'Urban & Industrial Air Monitoring with IoT and Dashboards',
 	description:
@@ -17,10 +17,43 @@ export const airQualityMonitoringData: UseCaseData = {
 			'https://thingsboard.cloud/dashboard/ec564620-82b2-11ed-a624-8360a2a6cb0e?publicId=4978baf0-8a92-11ec-98f9-ff45c37940c6',
 		demoButtonId: 'UseCases_AirQM_ViewLiveDemo',
 	},
+	overview: {
+		type: 'carousel',
+		carouselImages: [
+			{
+				src: '/src/assets/images/usecases/air-quality/aiq-1.webp',
+				alt: 'Interactive AQI heatmap of Los Angeles on the ThingsBoard IoT Platform',
+				title: 'AQI map of Los Angeles monitored via ThingsBoard',
+				width: 1302,
+				height: 699,
+			},
+			{
+				src: '/src/assets/images/usecases/air-quality/aiq-2.webp',
+				alt: 'Live PM10 air quality metrics for Beverly Hills on ThingsBoard dashboard',
+				title: 'PM10 air quality levels in Beverly Hills displayed in ThingsBoard',
+				width: 1302,
+				height: 699,
+			},
+			{
+				src: '/src/assets/images/usecases/air-quality/aiq-4.webp',
+				alt: 'IoT air quality sensors and alerts visualized on ThingsBoard map dashboard',
+				title: 'Live air quality sensors and alerts across LA in ThingsBoard',
+				width: 1302,
+				height: 699,
+			},
+			{
+				src: '/src/assets/images/usecases/air-quality/aiq-5.webp',
+				alt: 'Sensor metrics for Beverly Hills including AQI and battery on ThingsBoard',
+				title: 'Sensor data for Beverly Hills – AQI, battery and status',
+				width: 1302,
+				height: 699,
+			},
+		],
+	},
 	solutionStructure: {
 		title: 'Solution structure of air quality monitoring',
 		shortText:
-			'An <a href="/docs/pe/recipes/solution-templates/air-quality-monitoring/">air quality monitoring solution</a> powered by ThingsBoard consists of IoT sensors that collect real-time data on pollutants such as PM2.5, PM10, CO, SO₂, NO₂, and O₃. These devices transmit telemetry to the platform via industry-standard communication protocols, including MQTT, HTTP/HTTPS, CoAP, and LwM2M — enabling flexible integration across sectors.',
+			'An <a href="/iot-hub/solution-templates/air-quality-index/">air quality monitoring solution</a> powered by ThingsBoard consists of IoT sensors that collect real-time data on pollutants such as PM2.5, PM10, CO, SO₂, NO₂, and O₃. These devices transmit telemetry to the platform via industry-standard communication protocols, including MQTT, HTTP/HTTPS, CoAP, and LwM2M — enabling flexible integration across sectors.',
 		longText: [
 			'Once received by ThingsBoard, the data is processed, stored in a time-series database, and visualized via interactive dashboards. Custom rule chains allow the generation of automated alarms when AQI thresholds are breached or sensor battery levels drop below critical levels.',
 		],
@@ -99,7 +132,6 @@ export const airQualityMonitoringData: UseCaseData = {
 				description:
 					'ThingsBoard enables city authorities to deploy scalable sensor networks and automate air quality alarms, helping protect public health and enforce clean air regulations in real time.',
 				desktopImage: '/src/assets/images/usecases/air-quality/cities-1.svg',
-				mobileImage: '/src/assets/images/usecases/air-quality/cities-2.svg',
 				imageAlt: 'Smart city',
 				imageTitle: 'Smart cities',
 			},
@@ -108,7 +140,6 @@ export const airQualityMonitoringData: UseCaseData = {
 				description:
 					'Manufacturers use ThingsBoard to monitor emissions through customizable dashboards and rule-based automation, ensuring regulatory compliance and minimizing environmental risks.',
 				desktopImage: '/src/assets/images/usecases/air-quality/industrial-1.svg',
-				mobileImage: '/src/assets/images/usecases/air-quality/industrial-2.svg',
 				imageAlt: 'Industrial zone',
 				imageTitle: 'Industrial zones',
 			},
@@ -117,7 +148,6 @@ export const airQualityMonitoringData: UseCaseData = {
 				description:
 					'Air quality tracking near highways, ports, and airports to assess environmental impact and meet regulations.',
 				desktopImage: '/src/assets/images/usecases/air-quality/logistics-1.svg',
-				mobileImage: '/src/assets/images/usecases/air-quality/logistics-2.svg',
 				imageAlt: 'Transportation',
 				imageTitle: 'Transportation & logistics',
 			},
@@ -126,7 +156,6 @@ export const airQualityMonitoringData: UseCaseData = {
 				description:
 					"Academic institutions benefit from ThingsBoard's real-time data visualization and open API, integrating environmental data into curriculum, research projects, and citizen science initiatives.",
 				desktopImage: '/src/assets/images/usecases/air-quality/education-1.svg',
-				mobileImage: '/src/assets/images/usecases/air-quality/education-2.svg',
 				imageAlt: 'Education',
 				imageTitle: 'Education & research',
 			},
@@ -135,7 +164,6 @@ export const airQualityMonitoringData: UseCaseData = {
 				description:
 					"Developers leverage ThingsBoard's remote monitoring, public dashboards, and analytics to showcase air quality metrics as a selling point for eco-friendly properties.",
 				desktopImage: '/src/assets/images/usecases/air-quality/development-1.svg',
-				mobileImage: '/src/assets/images/usecases/air-quality/development-2.svg',
 				imageAlt: 'Real estate',
 				imageTitle: 'Real estate development',
 			},

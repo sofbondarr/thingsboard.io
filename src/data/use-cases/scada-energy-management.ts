@@ -1,7 +1,7 @@
 import type { UseCaseData } from './types';
 import { SCADA_COMMON_BENEFITS } from './_scada-shared';
 
-export const scadaEnergyManagementData: UseCaseData = {
+export const data: UseCaseData = {
 	title: 'SCADA Energy management',
 	pageTitle: 'SCADA Energy Management & Monitoring with ThingsBoard',
 	description:
@@ -12,11 +12,37 @@ export const scadaEnergyManagementData: UseCaseData = {
 			'SCADA (Supervisory Control and Data Acquisition) systems play a crucial role in energy monitoring and management, providing real-time insights into power generation, distribution, and consumption. With platforms like ThingsBoard, businesses can integrate advanced SCADA solutions to optimize energy efficiency, reduce costs, and enhance system reliability.',
 		longText: [
 			'The ability to collect, analyze, and visualize data from multiple energy sources helps operators make informed decisions and respond swiftly to changing conditions. ThingsBoard provides comprehensive tools to collect, process, and visualize data from SCADA components, such as PLCs (Programmable Logic Controllers) and RTUs (Remote Terminal Units), enabling seamless integration with various industrial processes.',
-			'With ThingsBoard, you can monitor the performance of all energy sources and consumption points in real time, identify inefficiencies, forecast demand peaks, and respond to anomalies instantly. All of this is showcased in our <a href="/docs/pe/recipes/solution-templates/scada-energy-management/">SCADA Energy solution</a>, demonstrating how easily and effectively energy systems can be managed using ThingsBoard.',
+			'With ThingsBoard, you can monitor the performance of all energy sources and consumption points in real time, identify inefficiencies, forecast demand peaks, and respond to anomalies instantly. All of this is showcased in our <a href="/iot-hub/solution-templates/scada-energy-management/">SCADA Energy solution</a>, demonstrating how easily and effectively energy systems can be managed using ThingsBoard.',
 		],
 		demoUrl:
 			'https://thingsboard.cloud/dashboard/2430dc20-3172-11f0-858a-67efd1bc8a87?publicId=7aa99e80-8acd-11ef-a59e-a9c993dbec14',
 		demoButtonId: 'UseCases_ScadaEnergy_ViewLiveDemo',
+	},
+	overview: {
+		type: 'carousel',
+		carouselImages: [
+			{
+				src: '/src/assets/images/usecases/scada-energy-management/scada-energy-management-1.webp',
+				alt: 'Main state of SCADA energy management dashboard',
+				title: 'Main mimic diagram: generation, storage and consumption',
+				width: 1286,
+				height: 660,
+			},
+			{
+				src: '/src/assets/images/usecases/scada-energy-management/scada-energy-management-2.webp',
+				alt: 'SCADA energy management dashboard consumption state',
+				title: 'Live power, voltage, current and frequency by phase',
+				width: 1286,
+				height: 660,
+			},
+			{
+				src: '/src/assets/images/usecases/scada-energy-management/scada-energy-management-3.webp',
+				alt: 'SCADA energy management dashboard small screen responsiveness',
+				title: 'Responsive SCADA layout on tablet and phone',
+				width: 1302,
+				height: 679,
+			},
+		],
 	},
 	solutionStructure: {
 		title: 'Solution structure',
@@ -195,7 +221,6 @@ export const scadaEnergyManagementData: UseCaseData = {
 				title: 'Industrial facilities',
 				description: 'Monitoring and optimizing energy usage in manufacturing plants.',
 				desktopImage: '/src/assets/images/usecases/scada-energy-management/indust.svg',
-				mobileImage: '/src/assets/images/usecases/scada-energy-management/indust-2.svg',
 				imageAlt: 'Industrial facilities',
 				imageTitle: 'Industrial facilities',
 			},
@@ -203,7 +228,6 @@ export const scadaEnergyManagementData: UseCaseData = {
 				title: 'Smart buildings',
 				description: 'Enhancing energy efficiency in commercial and residential structures.',
 				desktopImage: '/src/assets/images/usecases/scada-energy-management/smart.svg',
-				mobileImage: '/src/assets/images/usecases/scada-energy-management/smart-2.svg',
 				imageAlt: 'Smart buildings',
 				imageTitle: 'Smart buildings',
 			},
@@ -211,7 +235,6 @@ export const scadaEnergyManagementData: UseCaseData = {
 				title: 'Renewable energy plants',
 				description: 'Managing solar and wind energy production.',
 				desktopImage: '/src/assets/images/usecases/scada-energy-management/renewable.svg',
-				mobileImage: '/src/assets/images/usecases/scada-energy-management/renewable-2.svg',
 				imageAlt: 'Renewable energy plants',
 				imageTitle: 'Renewable energy plants',
 			},
@@ -219,7 +242,6 @@ export const scadaEnergyManagementData: UseCaseData = {
 				title: 'Data centers',
 				description: 'Ensuring stable power supply and backup power management.',
 				desktopImage: '/src/assets/images/usecases/scada-energy-management/data-centers.svg',
-				mobileImage: '/src/assets/images/usecases/scada-energy-management/data-centers-2.svg',
 				imageAlt: 'Data centers',
 				imageTitle: 'Data centers',
 			},
@@ -227,7 +249,6 @@ export const scadaEnergyManagementData: UseCaseData = {
 				title: 'Utilities and power grids',
 				description: 'Supervising grid operations and power distribution.',
 				desktopImage: '/src/assets/images/usecases/scada-energy-management/utilites.svg',
-				mobileImage: '/src/assets/images/usecases/scada-energy-management/utilites-2.svg',
 				imageAlt: 'Utilities and power grids',
 				imageTitle: 'Utilities and power grids',
 			},

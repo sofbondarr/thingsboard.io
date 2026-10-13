@@ -1,6 +1,6 @@
 import type { UseCaseData } from './types';
 
-export const smartRetailData: UseCaseData = {
+export const data: UseCaseData = {
 	title: 'Smart retail',
 	pageTitle: 'Turn your market into a Smart Retail powerhouse with ThingsBoard IoT',
 	description:
@@ -10,12 +10,71 @@ export const smartRetailData: UseCaseData = {
 		shortText:
 			'Smart retail solution by ThingsBoard is a powerful platform that helps retailers gain full visibility into store infrastructure, automate data collection, respond to incidents in real time, and make informed decisions. Leveraging the flexibility of ThingsBoard, retailers can integrate a wide range of sensors and devices, visualize key metrics through custom dashboards, and implement intelligent analytics.',
 		longText: [
-			'The <a href="/docs/pe/recipes/solution-templates/smart-retail/">smart retail solution</a> template represents a flexible, ready-to-use structure for building intelligent retail infrastructures using the ThingsBoard IoT platform. As a solution provider, you can provision multiple customers and assign each one a dedicated pool of IoT devices to monitor key assets across their supermarkets. Customers can easily upload custom floor plans, install devices on-site, and place them logically within the dashboard layout to reflect the physical environment.',
+			'The <a href="/iot-hub/solution-templates/smart-retail/">smart retail solution</a> template represents a flexible, ready-to-use structure for building intelligent retail infrastructures using the ThingsBoard IoT platform. As a solution provider, you can provision multiple customers and assign each one a dedicated pool of IoT devices to monitor key assets across their supermarkets. Customers can easily upload custom floor plans, install devices on-site, and place them logically within the dashboard layout to reflect the physical environment.',
 			'With built-in alarm logic and fully configurable thresholds per device, users can detect anomalies such as temperature fluctuations or unauthorized access without needing a complex setup. The template also includes interactive dashboards that allow both providers and customers to monitor the current and historical state of their supermarkets\u2014empowering data-driven decisions, operational efficiency, and a higher standard of safety and service.',
 		],
 		demoUrl:
 			'https://thingsboard.cloud/dashboard/551d4ca0-8b54-11ec-98f9-ff45c37940c6?publicId=4978baf0-8a92-11ec-98f9-ff45c37940c6',
 		demoButtonId: 'UseCases_SmartRetail_ViewLiveDemo',
+	},
+	overview: {
+		type: 'carousel',
+		carouselImages: [
+			{
+				src: '/src/assets/images/usecases/smart-retail/smart-retail-1.webp',
+				alt:
+					'ThingsBoard dashboard displaying supermarket locations and active critical alarms on the map',
+				title: 'Overview of supermarket monitoring with critical and major alerts',
+				width: 1819,
+				height: 966,
+			},
+			{
+				src: '/src/assets/images/usecases/smart-retail/smart-retail-2.webp',
+				alt:
+					'Critical motion sensor and list of active alarms for Supermarket S1 in ThingsBoard interface',
+				title: 'Device and alarm status for Supermarket S1',
+				width: 1819,
+				height: 966,
+			},
+			{
+				src: '/src/assets/images/usecases/smart-retail/smart-retail-3.webp',
+				alt:
+					'ThingsBoard interface showing Supermarket S1 floor plan with critical motion sensor alerts and alarm chart',
+				title: 'Floor plan of Supermarket S1 with device states and motion sensor data',
+				width: 1819,
+				height: 966,
+			},
+			{
+				src: '/src/assets/images/usecases/smart-retail/smart-retail-4.webp',
+				alt: 'Dashboard view of Supermarket S2 with critical door sensor and major chiller alarm',
+				title: 'Device overview and alarms in Supermarket S2',
+				width: 1819,
+				height: 966,
+			},
+			{
+				src: '/src/assets/images/usecases/smart-retail/smart-retail-5.webp',
+				alt: 'Supermarket S2 layout with freezer temperature monitoring and no active alarms',
+				title: 'Temperature graph for freezer in Supermarket S2',
+				width: 1819,
+				height: 966,
+			},
+			{
+				src: '/src/assets/images/usecases/smart-retail/smart-retail-6.webp',
+				alt:
+					'Critical door sensor and multiple major temperature alarms in Supermarket S3 on ThingsBoard',
+				title: 'Supermarket S3 device list and alarm summary',
+				width: 1819,
+				height: 966,
+			},
+			{
+				src: '/src/assets/images/usecases/smart-retail/smart-retail-7.webp',
+				alt:
+					'Dashboard showing temperature fluctuations of chiller in Supermarket S3 on ThingsBoard',
+				title: 'Supermarket S3 floor plan and temperature trend for chiller',
+				width: 1819,
+				height: 966,
+			},
+		],
 	},
 	solutionStructure: {
 		title: 'Solution structure of smart retail',
@@ -33,7 +92,7 @@ export const smartRetailData: UseCaseData = {
 	dashboardStructure: {
 		title: 'Smart retail dashboard structure',
 		subtitle:
-			'<a href="/docs/pe/recipes/solution-templates/smart-retail/">Smart retail solution</a> dashboards in ThingsBoard are designed to give retail operators full situational awareness, from high-level monitoring of multiple store locations down to detailed insights into individual devices. Each dashboard state provides a specific layer of visibility to support operational efficiency and safety.',
+			'<a href="/iot-hub/solution-templates/smart-retail/">Smart retail solution</a> dashboards in ThingsBoard are designed to give retail operators full situational awareness, from high-level monitoring of multiple store locations down to detailed insights into individual devices. Each dashboard state provides a specific layer of visibility to support operational efficiency and safety.',
 		panels: [
 			{
 				title: 'Supermarket map overview state',
@@ -107,7 +166,6 @@ export const smartRetailData: UseCaseData = {
 				description:
 					'Smart retail solution enables pharmacy networks to ensure safe medication storage by monitoring refrigeration units, maintaining regulatory compliance, and detecting unauthorized access.',
 				desktopImage: '/src/assets/images/usecases/smart-retail/pharmacy-1.svg',
-				mobileImage: '/src/assets/images/usecases/smart-retail/pharmacy-2.svg',
 				imageAlt: 'Pharmacy',
 				imageTitle: 'Pharmacy chains',
 			},
@@ -116,7 +174,6 @@ export const smartRetailData: UseCaseData = {
 				description:
 					'Convenience stores benefit from automated monitoring of refrigeration, security alarms, and predictive maintenance based on real-time telemetry data.',
 				desktopImage: '/src/assets/images/usecases/smart-retail/fuel-1.svg',
-				mobileImage: '/src/assets/images/usecases/smart-retail/fuel-1.svg',
 				imageAlt: 'Fuel station',
 				imageTitle: 'Convenience stores at fuel stations',
 			},
@@ -125,7 +182,6 @@ export const smartRetailData: UseCaseData = {
 				description:
 					'The platform helps logistics operators maintain precise environmental conditions, monitor access points, and comply with food safety standards across their storage facilities.',
 				desktopImage: '/src/assets/images/usecases/smart-retail/logistics-1.svg',
-				mobileImage: '/src/assets/images/usecases/smart-retail/logistics-2.svg',
 				imageAlt: 'Warehouse',
 				imageTitle: 'Logistics and cold chain warehouses',
 			},
@@ -134,7 +190,6 @@ export const smartRetailData: UseCaseData = {
 				description:
 					'Institutional kitchens use smart retail solution to ensure food safety, prevent equipment failures, and optimize stock levels through smart shelf monitoring.',
 				desktopImage: '/src/assets/images/usecases/smart-retail/cafeterias-1.svg',
-				mobileImage: '/src/assets/images/usecases/smart-retail/cafeterias-2.svg',
 				imageAlt: 'Cafeteria',
 				imageTitle: 'Hospital cafeterias and institutional kitchens',
 			},
@@ -143,7 +198,6 @@ export const smartRetailData: UseCaseData = {
 				description:
 					'Restaurants and food courts can leverage ThingsBoard to track equipment health, detect fire risks, and monitor access to restricted areas in real time.',
 				desktopImage: '/src/assets/images/usecases/smart-retail/court-1.svg',
-				mobileImage: '/src/assets/images/usecases/smart-retail/court-2.svg',
 				imageAlt: 'Food court',
 				imageTitle: 'Food courts and restaurant chains',
 			},

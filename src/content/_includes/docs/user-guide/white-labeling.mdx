@@ -1,10 +1,7 @@
 import DocLink from '@components/DocLink.astro';
 import { Steps, Aside } from '@astrojs/starlight/components';
 import ImageGallery from '@components/ImageGallery.astro';
-import Banner from '~/components/Banner.astro';
 import YouTubeVideo from '@components/YouTubeVideo.astro';
-
-<Banner variant="peFeature" product={props.product} path="user-guide/white-labeling" />
 
 White labeling lets you tailor your ThingsBoard instance to match your brand — set your company name, upload your logo, choose color palettes, and customize the UI — all without writing code or restarting the service. You can also configure a <DocLink product={props.product} path="user-guide/white-labeling-menu" target="_blank">custom menu</DocLink> and <DocLink product={props.product} path="user-guide/white-labeling-translation" target="_blank">custom translations</DocLink>.
 
@@ -24,9 +21,18 @@ White labeling settings follow a three-level inheritance chain. Each level inher
 To configure white labeling, you need the appropriate <DocLink product={props.product} path="user-guide/roles" target="_blank">permissions</DocLink>.
 </Aside>
 
-## General Settings
+<Aside type="tip">
+White Labeling checks are performed recursively. To use White Labeling, a customer must have the "Allow white labeling" option enabled for all parent customers and the tenant in the hierarchy.
+It can be enabled in the "Customer details" tab. 
 
-Navigate to the **White labeling** page to configure your company or product logo and color scheme.
+For example, for the Sub-Customer shown in the diagram above to use White Labeling, the following conditions must be met:
+- the "Allow white labeling" option must be enabled for the Tenant, Customer, and Sub-Customer;
+- the "White Labeling" permission must be granted to the corresponding sub-customer user group.
+</Aside>
+
+## General settings
+
+Navigate to the **White labeling &#8702; General** to configure your company or product logo and color scheme.
 
 <ImageGallery images={[
   { src: '/src/assets/images/user-guide/white-labeling/white-labeling-default.png', alt: 'Default white labeling page' },
