@@ -183,13 +183,42 @@ Three variants of this error may occur:
 
 **How to fix:** Restore the previous version of ThingsBoard, or upgrade your license subscription to support the current version.
 
+<ConditionalHeading level={3} id="instance_registry_not_found-110" showFor="pe">INSTANCE_REGISTRY_NOT_FOUND (110)</ConditionalHeading>
+
+**Root cause:** The instance registry record this node was using is no longer present, so its periodic license check has nothing to check against. Unlike [INSTANCE_NOT_FOUND (105)](#instance_not_found-105), which is about the record held on the License Server, this error concerns the registry ThingsBoard keeps for the node itself. It is raised by the periodic check of a running node rather than at startup, so the service is already up when it appears.
+
+**How to fix:** Restart the node so that it registers again. If the error returns, make sure the node keeps a stable service ID (`TB_SERVICE_ID`) across restarts, since a node that rejoins the cluster under a new ID does not reclaim its previous registry record. If it still recurs, <SupportLink code="INSTANCE_REGISTRY_NOT_FOUND (110)">contact support</SupportLink>.
+
+<ConditionalHeading level={3} id="invalid_offline_license_data_check-111" showFor="pe">INVALID_OFFLINE_LICENSE_DATA_CHECK (111)</ConditionalHeading>
+
+**Root cause:** The license data could not be read as a valid offline license. This is reported both for offline license data that is corrupted or has been modified, and for any value that is not well-formed offline license data at all — including an ordinary online license key that was truncated while being copied.
+
+**How to fix:** If you use an online license key, copy the `TB_LICENSE_SECRET` value from the [ThingsBoard License Portal](https://license.thingsboard.io) again, end to end, and make sure nothing was lost at either end of the string. If you use an offline license, download the license data from the portal again and replace the file, keeping the content exactly as issued.
+
+<ConditionalHeading level={3} id="cluster_id_not_found-112" showFor="pe">CLUSTER_ID_NOT_FOUND (112)</ConditionalHeading>
+
+**Root cause:** The node has no cluster ID to bind a license to. Nothing is wrong with the license key itself. There are two situations behind this error:
+
+- The node is still starting and has not established its cluster identity yet. This is transient.
+- The cluster ID row is missing from the ThingsBoard database, which happens after an interrupted or manually assembled installation.
+
+**How to fix:** Wait for the node to finish starting and try again. If the error persists once the service is fully up, the cluster ID was never generated in the database — re-run the installation or upgrade step that creates it, then start ThingsBoard again.
+
+<Aside type="caution">`TB_LICENSE_CLUSTER_ID` can supply the cluster ID explicitly, but it must match the ID your license key is bound to. Setting it to an arbitrary value replaces this error with [CLUSTER_ID_MISMATCH (114)](#cluster_id_mismatch-114).</Aside>
+
+<ConditionalHeading level={3} id="invalid_cluster_id_check-113" showFor="pe">INVALID_CLUSTER_ID_CHECK (113)</ConditionalHeading>
+
+**Root cause:** The offline license data is bound to a different cluster ID than the one this deployment has. It is the offline-license counterpart of [CLUSTER_ID_MISMATCH (114)](#cluster_id_mismatch-114) below: the cluster ID is carried inside the license data itself and is checked locally, without the License Server being contacted.
+
+**How to fix:** Generate the offline license data again on the [ThingsBoard License Portal](https://license.thingsboard.io) for the cluster ID this deployment actually has, then replace the license data file and restart ThingsBoard. If the license belongs to another deployment, deactivate that instance in the portal to release it, or use a key issued for this one.
+
 <ConditionalHeading level={3} id="cluster_id_mismatch-114" showFor="pe">CLUSTER_ID_MISMATCH (114)</ConditionalHeading>
 
 **Root cause:** Starting with ThingsBoard PE 4.3.1.4, a license key is bound to a **cluster ID** — a unique identifier that is generated once while the ThingsBoard database is being installed and is then stored in that database. This error means the cluster ID found in the database is not the one the license key is bound to. The usual causes are:
 
 - The service was installed on top of an existing database.
 - The key was moved to another installation.
-- Offline activation with the wrong cluster ID.
+- Offline activation with the wrong cluster ID. Offline license data that carries a different cluster ID is usually reported as [INVALID_CLUSTER_ID_CHECK (113)](#invalid_cluster_id_check-113) instead, because that check happens locally.
 
 <Aside type="note">The cluster ID identifies the whole cluster, not a single node. All nodes that share the same ThingsBoard database share the same cluster ID, so running multiple nodes with one key is expected and does not cause this error.</Aside>
 
