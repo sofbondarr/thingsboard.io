@@ -1,6 +1,6 @@
 import { Aside } from '@astrojs/starlight/components';
 
-<Aside type="caution" title="Do not use INDEFINITE partitioning in production">
+<Aside type="caution" title="Do not use INDEFINITE time-series partitioning in production">
   <p>Time-series data is written into time-based partitions, and expired data is removed by dropping whole partitions rather than deleting rows one by one. With <code>INDEFINITE</code> every record lands in a single partition, so there is nothing to drop: data is never cleaned up, the table keeps growing, and read performance degrades as it does.</p>
   <p>Keep the default <code>MONTHS</code>, or pick the granularity that matches your write volume — <code>DAYS</code> for high-throughput deployments, <code>YEARS</code> for very low ones. The setting is <code>SQL&#95;POSTGRES&#95;TS&#95;KV&#95;PARTITIONING</code> for PostgreSQL and <code>TS&#95;KV&#95;PARTITIONING</code> for Cassandra.</p>
   <p>Choose this before going to production. Data that has already been written stays in the layout it was written with, so changing the value later does not repartition it.</p>
