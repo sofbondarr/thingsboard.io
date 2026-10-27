@@ -8,7 +8,7 @@ This article describes the most common deployment architectures supported by Thi
 Every deployment scenario has its own pros and cons.
 Choosing the right architecture for your deployment depends on your cost, performance, and high-availability requirements.
 
-Described below are 3 reference architectures, ranging from a single standalone server to a multi-AZ high-availability cluster. Each section lists the minimum compute resources it requires.
+Described below are 3 reference architectures, ranging from a single standalone server to a high-availability cluster spanning multiple Availability Zones (AZs). Each section lists the minimum compute resources it requires.
 
 ## Planning the deployment — key decisions before you start
 
@@ -338,8 +338,8 @@ For workloads with moderate data ingestion rates, this setup uses a Postgres ins
 
 **Compute Resources:**
 
-- Kubernetes cluster provisioned within 3 Availability Zones
-  - each of the 3 worker nodes is deployed in its own Availability Zone
+- Kubernetes cluster provisioned across three Availability Zones
+  - each of the three worker nodes is deployed in its own Availability Zone
 - Node: 4 vCPU, 16 GB RAM
 
 **Application Components:**
