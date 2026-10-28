@@ -8,7 +8,7 @@ This article describes the most common deployment architectures supported by Thi
 Every deployment scenario has its own pros and cons.
 Choosing the right architecture for your deployment depends on your cost, performance, and high-availability requirements.
 
-Described below are 3 reference architectures, ranging from a single standalone server to a high-availability cluster spanning multiple Availability Zones (AZs). Each section lists the minimum compute resources it requires.
+Described below are three reference architectures, ranging from a single standalone server to a high-availability cluster spanning multiple Availability Zones (AZs). Each section lists the minimum compute resources it requires.
 
 ## Planning the deployment — key decisions before you start
 
@@ -40,7 +40,7 @@ Uptime targets are availability levels each architecture can reach when operated
 
 It is important to plan both the amount of data you expect to store (persisted telemetry) and the amount you expect to query (dashboard widgets, API responses). Your database choice strongly influences how much data you can read and write at sustainable performance.
 
-ThingsBoard supports 2 primary database topologies: SQL-only and Hybrid.
+ThingsBoard supports two primary database topologies: SQL-only and Hybrid.
 
 1. **SQL-only topology** uses PostgreSQL exclusively for storing all ThingsBoard data, including entities and telemetry.
   This approach simplifies architecture and maintenance, and is best suited for environments with predictable data volume.
@@ -53,7 +53,7 @@ There is no universal hard limit on the number of reads or writes a PostgreSQL-o
 
 However, consider the Hybrid topology if any of the following characteristics match your ThingsBoard environment:
 
-- **Long retention periods (1 year or more) are required, and older data is frequently queried** (dashboards or API calls).
+- **Long retention periods (one year or more) are required, and older data is frequently queried** (dashboards or API calls).
   Cassandra offers more predictable and efficient long-term storage, especially when the total dataset grows into hundreds of gigabytes.
 - **Dashboards display complex widgets with multiple time-series on a single page**. That is especially relevant for dashboards spanning weeks-long time windows, or using aggregations with a large number of data points and short grouping intervals.
   ThingsBoard’s telemetry storage model is significantly more optimized for Cassandra when reading old data across wide time ranges.
@@ -108,6 +108,7 @@ Note a few other sizing factors that matter as much as raw dp/s:
 - **Device count matters on its own.** The <DocLink product={props.product} path="user-guide/connectivity-status">Device State service</DocLink> can handle around 100,000 devices per <DocLink product={props.product} path="reference/architecture/microservices/#thingsboard-node">TB-core/TB-node</DocLink>, so very large fleets lean toward a multi-node setup regardless of dp/s.
 - **Count connections, not just throughput.** A single transport handles roughly 50,000 concurrent direct device connections; beyond that, add more transport replicas, or route devices through <a href={TBMQ_DOCS_URL} target="_blank" rel="noopener noreferrer">a dedicated MQTT broker</a> or <DocLink product={Products.GW} path="">Gateway</DocLink> instead of connecting them directly to the transport layer.
 - **Size for sustained load, not every spike.** Traffic rarely arrives evenly, so specific patterns (for example, devices that report on a synchronized schedule) can briefly push dp/s above average. <DocLink product={props.product} path="reference/architecture/queue">Kafka</DocLink> absorbs these short bursts between transport and the rule engine. You still need to size for the considerations above, as these are exceptions where queue buffering does not apply.
+- **Size storage for retention, not just throughput.** Based on <DocLink product={props.product} path="reference/architecture/performance#disk-usage">Performance</DocLink> measurements, storage ≈ dp/s × retention days × ~14 MB (PostgreSQL) or ~3 MB (Cassandra). Storage figures in the *Minimum requirements* tables are a floor for short retention periods.
 
 ## Deployment scenarios
 
@@ -198,9 +199,9 @@ This scenario is ideal for early-stage deployments but may require vertical scal
 
 This reference targets a horizontally scalable deployment. While ThingsBoard still runs as a single instance (monolith), the overall architecture is fundamentally different from [Scenario A](#scenario-a-monolith). By deploying into a Kubernetes cluster, this setup achieves self-healing and the ability to scale out horizontally when needed.
 
-It is ideal for production environments anticipating future growth beyond initial operational loads. Kubernetes manages container placement and rolling upgrades, keeping day-to-day operations and version updates low-effort.
+It is ideal for production environments anticipating future growth beyond initial operational loads. Kubernetes handles container placement, restarts, and configuration rollouts, keeping day-to-day operations low-effort.
 
-The deployment pattern includes 2 configuration options, each optimized for a different level of data ingestion.
+The deployment pattern includes two configuration options, each optimized for a different level of data ingestion.
 
 #### Setup 1: General-Purpose Scalable Deployment
 
@@ -277,7 +278,7 @@ Three additional worker nodes are provisioned to host the distributed Cassandra 
 
 - Cassandra node: 2 vCPU, 8 GB RAM
 - Node count: 3
-- Deployment pattern: 1 Cassandra instance per node (ensuring fault tolerance and data replication)
+- Deployment pattern: one Cassandra instance per node (ensuring fault tolerance and data replication)
 
 **Pros:**
 
@@ -328,7 +329,7 @@ This scenario is ideal for organizations anticipating future growth and requirin
 
 This deployment option is designed for production instances requiring high availability and fault tolerance. Additionally, it runs more replicas of both ThingsBoard and third-party services, so it can handle more load and higher ingestion.
 
-This scenario is a direct upgrade to [Scenario B](#scenario-b-single-node-cluster), featuring multiple replicas spread across different Availability Zones. Like its preceding scenario, it runs on Kubernetes, keeping container placement, restarts, and rolling upgrades automated and low-effort. There are 2 distinct configurations optimized for different ingestion rates.
+This scenario is a direct upgrade to [Scenario B](#scenario-b-single-node-cluster), featuring multiple replicas spread across different Availability Zones. Like its preceding scenario, it runs on Kubernetes, which automates container placement, restarts, and configuration rollouts. There are two distinct configurations optimized for different ingestion rates.
 
 #### Setup 1: General-Purpose MSA Cluster
 
@@ -360,7 +361,7 @@ The following containerized services are deployed across all compute nodes. Each
 **Database Specifications:**
 
 - Postgres node: 4 vCPU, 4 GB RAM
-- A read-only Postgres replica in a separate Availability Zone for fault tolerance (2 Postgres nodes total)
+- A Postgres replica in a separate Availability Zone with automatic failover, for example a managed Multi-AZ deployment (two Postgres nodes total)
 
 **Pros:**
 
@@ -395,7 +396,7 @@ A managed PostgreSQL service is recommended when your provider offers one, as it
 
 #### Setup 2: High-Capability MSA Cluster
 
-Similarly to [Scenario B](#scenario-b-single-node-cluster), the second configuration option transitions to a **hybrid database topology**. Switching telemetry writes to Cassandra enables far greater scalability, especially valuable for read-heavy and write-heavy workloads.
+As in [Scenario B](#scenario-b-single-node-cluster), the second configuration option transitions to a **hybrid database topology**. Switching telemetry writes to Cassandra enables far greater scalability, especially valuable for read-heavy and write-heavy workloads.
 
 <ImageGallery images={[{ src: '/src/assets/images/reference/architecture/deployment-scenarios/setup-c2.svg', alt: 'Scenario C, Setup 2: high-availability ThingsBoard microservices cluster across three Availability Zones with hybrid database topology — a Postgres instance and a self-hosted Cassandra cluster' }]} />
 
@@ -410,7 +411,7 @@ Three additional worker nodes are provisioned to host the distributed Cassandra 
 
 - Cassandra node: 2 vCPU, 8 GB RAM
 - Node count: 3
-- Deployment pattern: 1 Cassandra instance per node (ensuring fault tolerance and data replication)
+- Deployment pattern: one Cassandra instance per node (ensuring fault tolerance and data replication)
 
 **Pros:**
 
@@ -459,4 +460,4 @@ This scenario is ideal for mission-critical applications where uptime and perfor
 ## See also
 
 - <DocLink product={props.product} path="reference/architecture/performance">Performance</DocLink> — benchmark results behind the dp/s figures: throughput, CPU, IOPS, and storage measured per database and queue setup.
-- <DocLink product={props.product} path="installation">Installation</DocLink> — deployment guides for your chosen scenario: standalone for Scenario A, or a cluster (Docker Compose, Kubernetes) for Scenarios B and C.
+- <DocLink product={props.product} path="installation">Installation</DocLink> — deployment guides for your chosen scenario: standalone for Scenario A, or a Kubernetes cluster for Scenarios B and C.
