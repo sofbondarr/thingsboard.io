@@ -1,4 +1,5 @@
 import DocLink from '@components/DocLink.astro';
+import ShowFor from '@components/ShowFor.astro';
 import MultiProductImageGallery from '~/components/MultiProductImageGallery.astro';
 import ConditionalHeading from '~/components/ConditionalHeading.astro';
 import { Steps, Aside } from '@astrojs/starlight/components';
@@ -95,9 +96,21 @@ After configuring the settings, click **Save** to apply.
 
 </>)}
 
+<ShowFor product={props.product} show={[Products.PE]}>
+
+<Aside type="caution" title="Enforcement needs the Profile permission">
+  A user forced into 2FA setup still needs the **Write** operation on the **Profile** resource to complete it. The enrollment token issued at sign-in is accepted by the setup endpoints, but each of them checks that permission against the user's own role — so a user whose role omits it cannot finish the setup, and cannot sign in at all for as long as enforcement covers them. Before selecting **All users**, confirm that every role in use grants **Write** on **Profile** — the default roles ship with it, but they can be edited like any other.
+</Aside>
+
+</ShowFor>
+
 ## User Configuration
 
 Users enable and manage their 2FA methods through **Account &#8702; Security**.
+
+<Aside type="note" title="Required permission">
+  Managing your own 2FA methods requires the **Write** operation on the **Profile** resource. All four default roles — **Tenant Administrator**, **Tenant User**, **Customer Administrator**, and **Customer User** — grant it, so users holding one of them are unaffected. Under a role that omits it, loading your current 2FA settings and every toggle in this section fail with `403` and the message `You don't have permission to perform 'WRITE' operation with 'PROFILE' resource!`. See <DocLink product={props.product} path="user-guide/roles">Role-Based Access Control</DocLink>.
+</Aside>
 
 ### Setting Up an Authenticator App
 
